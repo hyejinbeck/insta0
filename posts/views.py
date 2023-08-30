@@ -5,7 +5,11 @@ from .forms import PostForm
 # Create your views here.
 
 def index(request): 
-    posts = Post.objects.all()
+    # posts = Post.objects.all() 
+    # 모든 값을 보여줘 
+    posts = Post.objects.all().order_by('-id')
+    # id값(작성순서)를 역순으로 보여줘
+    # 최신작성된 거 먼저 보여줘
 
     context = {
         'posts' : posts, 
