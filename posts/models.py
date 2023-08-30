@@ -1,10 +1,16 @@
 from django.db import models
+from django_resized import ResizedImageField # 이미지크롭화
 
 # Create your models here.
 class Post(models.Model): 
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    # ImageField는 Pillow함수가 있어야 사용가능하다. 
-    # pip install pillow 
-    image = models.ImageField(upload_to='image/%Y/%m')
+
+    # image = models.ImageField(upload_to='image/%Y/%m')
+    # 그리고 이걸 추가 
+    image = ResizedImageField(
+        size=[500,500],
+        crop=['middle', 'center'], 
+        upload_to='image/%Y/%m'
+    )  
