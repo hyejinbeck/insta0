@@ -7,4 +7,4 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     # ImageField는 Pillow함수가 있어야 사용가능하다. 
     # pip install pillow 
-    image = models.ImageField(upload_to='image/')
+    image = models.ImageField(upload_to='image/%Y/%m')
