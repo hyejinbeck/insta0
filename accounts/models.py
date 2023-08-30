@@ -12,3 +12,4 @@ class User(AbstractUser):
     ) 
     # posts>modesl.py 파일에 user 추가된 이후로 
     # post_set 생성된거다. 
+
