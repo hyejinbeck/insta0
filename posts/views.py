@@ -20,10 +20,10 @@ def index(request):
 def create(request): 
     if request.method == 'POST': 
         form = PostForm(request.POST, request.FILES)
-        # request.POST 사용자가 입력한 사진 
-        # request.FILES 그 사진을 파일화 함 
         if form.is_valid(): 
-            form.save() 
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save() 
             return redirect('posts:index')
     else: 
         form = PostForm()
