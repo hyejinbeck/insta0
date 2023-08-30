@@ -122,3 +122,11 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# 업로드한 사진을 저장할 위치 
+# media라는 폴더를 만들거고, 그 안에 사진들을 저장할거야. 
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# 미디어 경로를 처리할 URL 
+# 그리고 그 저장된 사진들을 찾을 때는, 
+MEDIA_URL = '/mdeia/'
