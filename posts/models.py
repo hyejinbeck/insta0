@@ -1,5 +1,6 @@
 from django.db import models
 from django_resized import ResizedImageField # 이미지크롭화
+from django.conf import settings
 
 # Create your models here.
 class Post(models.Model): 
@@ -12,5 +13,9 @@ class Post(models.Model):
     image = ResizedImageField(
         size=[500,500],
         crop=['middle', 'center'], 
-        upload_to='image/%Y/%m'
+        upload_to='image/%Y/%m', 
     )  
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # user 추가함으로서, accounts의 Modes.py와 1:N 연결 
+    # user_id가 생성된거다. 
+    
