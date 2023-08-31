@@ -18,4 +18,11 @@ class Post(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # user 추가함으로서, accounts의 Modes.py와 1:N 연결 
     # user_id가 생성된거다. 
+
+class Comment(models.Model): 
+    content = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    # 1:N 연결
+    user = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
