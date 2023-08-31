@@ -15,14 +15,15 @@
       <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
 
       <div class="card-footer">
+        {% if user.is_authenticated %}
         <form action="{% url 'posts:comment_create' post_id=post.id %}" method="POST">
           {% csrf_token %}
           {% bootstrap_form comment_form %}
           <input type="submit">
         </form>
       </div>
-
       <hr>
+      {% endif %}
       {% for comment in post.comment_set.all %}
       <!--커맨트가 가지고있는 모든 집합들을 하나하나-->
       <li>{{comment.user}}:{{comment.content}}</li>

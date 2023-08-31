@@ -19,6 +19,8 @@ class Post(models.Model):
     # user 추가함으로서, accounts의 Modes.py와 1:N 연결 
     # user_id가 생성된거다. 
 
+    like_user = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_posts')
+
 class Comment(models.Model): 
     content = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
