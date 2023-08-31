@@ -58,3 +58,24 @@ def comment_create(request, post_id):
         return redirect('posts:index')
 
         # 이제 로그인된 상황에서 댓글작성해보자
+
+@login_required # 로그인해야만 작동 
+def like(request, post_id): 
+
+    # 좋아요 버튼을 누른 유저 
+    user = request.user 
+    post = Post.objects.get(id=post_id)
+
+    # 좋아요 버튼을 누른경우, 
+    # 이 유저가, 좋아요누른사람들 목록에 있나요? 
+    if post in user.like_posts.all(): 
+        post.like_users.remove(user)
+        # user.like_posts.remove(post)와 같다. 
+        # 그리고 한번 누르면 지워져야함
+    
+    # 좋아요 버튼을 아직 안누른 경우, 
+    else: 
+        post.like_users.add(user)
+        # user.like_posts.add(post)와 같다. 
+
+    return redirect('posts:index')
