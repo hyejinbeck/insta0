@@ -34,3 +34,24 @@ def create(request):
         'form': form,
     }
     return render(request,'form.html',context)
+
+def comment_create(request, post_id): 
+    comment_form = CommentForm(request.POST) 
+    # 작성자가 댓글칸에 입력값(request.POST)을 CommentForm빈 폼에 기재한 것을 
+    # comment_form이라고 한다. 
+
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        # commit 은 데이터베이스에 저장하는 단위중 하나 
+        # commit=False는 저장하기전까지만 해! 
+
+        # comment에는 로그인유저 (댓글작성자) 와 작성한내용이 담긴다. 
+        comment.user = request.user 
+        # 그리고 그 유저가 작성한 내용 
+        post = Post.objects.get(id=post_id)
+        comment.post = post
+
+        comment.save()
+        return redirect('posts:index')
+
+        # 이제 로그인된 상황에서 댓글작성해보자
