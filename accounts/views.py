@@ -3,6 +3,7 @@ from .forms import CustomUserCreationForm , CustomAuthenticationForm
 from django.contrib.auth import login as auth_login
 #from .models import User # 이렇게 직접가져오는것 보다는 유지보수 차원에서 아래 추천 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -48,3 +49,23 @@ def profile(request, username):
         'user_info': user_info
     }
     return render(request, 'accounts/profile.html', context)
+
+@login_required  # 로그인한사람만 보여지게
+def follow(request,username): 
+    User = get_user_model()
+
+    me = request.user  # 현재 로그인한사람(나자신)
+    # you를 하려면 get_user_model()을 윗칸에다 불러와서 저정해줘야함 
+    you = User.objects.get(username=username)
+    # 지금 프로필사진 누른 계정 
+    
+    # 팔로잉이 이미 되어있는 경우 
+      # 내가 그 계정의 팔로워들 목록에 있나요? 
+      # follower 는 따르는 사람 목록 
+      # following 은 따르는 사람 
+    if you in me.followings.all(): 
+       # if me in you.followers.all() : 와 같다. 
+        me.followings.remove(you)
+    else: 
+        me.followings.add(you)
+    return redirect('accounts:profile', username=username)

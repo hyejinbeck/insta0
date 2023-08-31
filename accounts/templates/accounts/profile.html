@@ -10,7 +10,18 @@
     <div class="col-8"> <!--8칸-->
         <div class="row">
             <div class="col-3">{{user_info.username}}</div>
-            <div class="col-4"><a href="">팔로우</a></div>
+
+            <!--user는 로그인 유저와 user_info는 보고있는 프로필페이지 유저 가 다르다면, -->
+            {% if user != user_info%} 
+            <div class="col-4">
+                {% if user in user_info.followers.all %} <!--if user_info in user.이하 동일-->
+                <a href="{% url 'accounts:follow' username=user_info.username %}" class="btn btn-primary btn-sm">팔로잉</a>
+                {% else %}
+                <a href="{% url 'accounts:follow' username=user_info.username %}" class="btn btn-secondary btn-sm">팔로우</a>
+                {% endif %}
+            </div>
+            {% endif %}
+
         </div>
         <div class="row">
             <div class="col">게시물</div>
