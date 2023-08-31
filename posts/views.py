@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect # redirect추가 
 from .models import Post
-from .forms import PostForm
+from .forms import PostForm, CommentForm #모델폼 만든거 추가 
 
 # Create your views here.
 
@@ -10,9 +10,11 @@ def index(request):
     posts = Post.objects.all().order_by('-id')
     # id값(작성순서)를 역순으로 보여줘
     # 최신작성된 거 먼저 보여줘
+    comment_form = CommentForm()
 
     context = {
         'posts' : posts, 
+        'comment_form' : comment_form,
     }
 
     return render(request, 'index.html', context)
