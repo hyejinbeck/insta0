@@ -38,7 +38,16 @@
             console.log(result)
             // 내가 어떤 정보를 클릭했는지 화면 출력할수있게 
             
-
+            if (result.status){
+                // 좋아요 누른상태 True  
+                button.classList.remove('bi-heart')
+                button.classList.add('bi-heart-fill')
+                button.style.color = 'red'
+            } else {
+                // 좋아요 취소한 상태 False
+                button.classList.remove('bi-heart-fill')
+                button.classList.add('bi-heart')
+            }
 
             // django 서버의 응답에 따라 좋아요 버튼 수정한다. 
         }

@@ -86,7 +86,7 @@ def like_async(request, post_id):
     # context = {
     #     'message': post_id, 
     # }
-
+    status = False 
     user = request.user
     post = Post.objects.get(id=post_id)
 
