@@ -43,10 +43,13 @@
                 button.classList.remove('bi-heart')
                 button.classList.add('bi-heart-fill')
                 button.style.color = 'red'
+                button.innerHTML = result.count
             } else {
                 // 좋아요 취소한 상태 False
                 button.classList.remove('bi-heart-fill')
                 button.classList.add('bi-heart')
+                button.style.color = 'black'
+                button.innerHTML = result.count
             }
 
             // django 서버의 응답에 따라 좋아요 버튼 수정한다. 
