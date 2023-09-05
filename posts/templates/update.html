@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block body %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% for post in posts %}
+        {% include 'index.html' %}
+        {% endfor %}
+        {% bootstrap_form form %}
+        <input type="submit">
+    </form>
+
+{% endblock %}

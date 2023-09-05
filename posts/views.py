@@ -106,8 +106,21 @@ def like_async(request, post_id):
     # html 문서를 return 할 필요가 없음 
 
 def delete(request,post_id): 
-        post = Post.objects.get(id=post_id)
+    post = Post.objects.get(id=post_id)
 
-        post.delete()
+    post.delete()
 
-        return redirect('posts:index')
+    return redirect('posts:index')
+
+def update(request,post_id): 
+    post = Post.objects.get(id=post_id)
+
+    if request.method == 'POST': 
+        pass 
+    else: 
+        form = PostForm(instance=post)
+
+    context = {
+        'form': form, 
+    }
+    return render(request, 'update.html', context)
