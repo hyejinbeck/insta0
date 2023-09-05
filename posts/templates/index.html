@@ -12,9 +12,36 @@
 
         likeButtons.forEach(likeButton => {
             // console.log(likeButton);
-            likeButton.addEventListener('click',(event)=> {
-                console.log(event)
+            likeButton.addEventListener('click',(event)=>{
+                let postID = event.target.dataset.postId
+                console.log(postID)
+
+                likeRequest(event.target, postID)
+                // 위에서 event.target 이게 좋아요 
+
             })
         });
+
+        let likeRequest = async (button, postID) => {
+            console.log(button,postID)
+            // django 서버에 좋아요버튼 눌렀다고 요청을 보낸다. 
+            let likeURL = `/posts/${postID}/like-async/`
+
+            // 여기서 잠깐! javascript 에서는 URL 주소를 빽틱 ` 으로 감싸줘야한다. 
+            // django 에서는 ' 그냥 따옴표 
+            let response = await fetch(likeURL)
+            // 이제 url 주소를 만들어주자 urls.py 
+            // 위의 fetch 라는게 인터넷속도에 따라 얼마나 걸릴지 몰라, 비동기 처리 해줘야함 
+            // 위에 likeRequest = async 추가 
+            
+            let result = await response.json()
+            console.log(result)
+            // 내가 어떤 정보를 클릭했는지 화면 출력할수있게 
+            
+
+
+            // django 서버의 응답에 따라 좋아요 버튼 수정한다. 
+        }
+
     </script>
 {% endblock %}

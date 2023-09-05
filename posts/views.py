@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect # redirect추가
 from .models import Post
 from .forms import PostForm, CommentForm #모델폼 만든거 추가 
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+
 
 # Create your views here.
 
@@ -79,3 +81,25 @@ def like(request, post_id):
         # user.like_posts.add(post)와 같다. 
 
     return redirect('posts:index')
+
+def like_async(request, post_id): 
+    # context = {
+    #     'message': post_id, 
+    # }
+
+    user = request.user
+    post = Post.objects.get(id=post_id)
+
+    if user in post.like_users.all(): 
+        post.like_users.remove(user)
+    else: 
+        post.like_users.add(user)
+        status = True 
+    
+    context = {
+        'status': status,
+    }
+
+    return JsonResponse(context)
+    # 이건 데이터 그 자체를 return 해줌 
+    # html 문서를 return 할 필요가 없음 
