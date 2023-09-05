@@ -42,7 +42,12 @@
       {% endif %}
       {% for comment in post.comment_set.all %}
       <!--커맨트가 가지고있는 모든 집합들을 하나하나-->
-      <li>{{comment.user}}:{{comment.content}}</li>
+      <li>{{comment.user}}:{{comment.content}}
+        <a class="btn btn-dark " href="{% url 'posts:delete' post_id=post.id %}">
+          삭제
+        </a>
+      </li>
+      
       {% endfor %}
     </div>
   </div>
